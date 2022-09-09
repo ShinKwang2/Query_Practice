@@ -146,8 +146,7 @@ FROM emp
 WHERE length(ename) = 5;
 
 -- 김싸피
-SELECT length('김싸피'), char_length('김싸피');
-SELECT length('🥕'), char_length('🥕');
+SELECT length('김싸피'), char_length('김싸피'), length('🥕'), char_length('🥕');
 
 -- 문자열 변경
 SELECT replace('Hello abc abc', 'abc', 'ssafy');
@@ -167,4 +166,16 @@ SELECT LPAD('SSAFY', 10, '*'), RPAD('SSAFY', 10, '*');
 SELECT REVERSE('HELLO SSAFY!');
 SELECT REVERSE('우영우역삼역기러기인도인토마토별똥별스위스');
 
+-- 날짜 관련 함수
+-- 2초 더하기
+SELECT ADDTIME("2022-02-13 17:29:21", "2");
+
+-- 날짜 계산하기
+SELECT DATEDIFF(CURRENT_TIMESTAMP, "2021-07-17");
+
+-- 오늘은?
+SELECT NOW(), DAY(NOW()), DAYNAME(NOW()), MONTH(NOW()), YEAR(NOW()), YEARWEEK(NOW());
+
+
+-- 집계 함수
 
