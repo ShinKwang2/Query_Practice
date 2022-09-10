@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS SCOTT;
+
+CREATE DATABASE SCOTT DEFAULT CHARACTER SET utf8mb4;
+
 USE scott;
 
 -- 모든 사원 정보 검색
@@ -178,4 +182,33 @@ SELECT NOW(), DAY(NOW()), DAYNAME(NOW()), MONTH(NOW()), YEAR(NOW()), YEARWEEK(NO
 
 
 -- 집계 함수
+-- 모든 사원에 대하여 사원수, 급여총액, 평균급여, 최고급여, 최저급여 조회
+SELECT COUNT(*) 사원수, SUM(sal), AVG(sal), MAX(sal), MIN(sal)
+FROM emp;
 
+-- 부서별로 조회하고, 소수점 둘째자리 반올림
+SELECT deptno 부서, COUNT(*) 사원수, SUM(sal) 급여총액, 
+		ROUND(AVG(sal), 2) 평균급여, MAX(sal) 최고급여, MIN(sal) 최저급여
+FROM emp
+GROUP BY deptno;
+
+-- 모든 사원에 대하여, 부서, 업무, 사원수, 급여총액, 평균급여, 최고급여, 최저급여를 부서별-직급별로 조회
+SELECT deptno 부서, job 업무, COUNT(*) 사원수, SUM(sal) 급여총액, ROUND(AVG(sal), 2) 평균급여,
+		MAX(sal) 최고급여, MIN(sal) 최저급여
+FROM emp
+GROUP BY deptno, job;
+
+-- 급여(커미션 포함) 평균이 2000 이상인 부서번호, 부서별 사원수, 평균급여(커미션 포함) 조회(단, 평균급여는 소수점 둘째자리 반올림)
+SELECT deptno 부서번호, COUNT(*) 사원수, ROUND(AVG(sal + IFNULL(comm, 0)), 2) "평균급여(커미션포함)"
+FROM emp
+GROUP BY deptno
+HAVING AVG(sal + IFNULL(comm, 0)) >= 2000;
+
+-- 제한 LIMIT
+SELECT *
+FROM emp
+ORDER BY sal
+LIMIT 5;
+
+-- AUTOCOMMIT 꺼버리기
+set autocommit = 0;
