@@ -105,3 +105,27 @@ SELECT name, continent, gnp, population FROM COUNTRY WHERE indepyear IS NULL AND
 
 # 8
 SELECT `code`, `name`, population FROM country WHERE population >= 100000000 AND population <= 200000000 ORDER BY population DESC LIMIT 3;
+
+# 9
+SELECT `code`, `name`, indepyear FROM country WHERE indepyear IN (800, 1810, 1811, 1901, 1901) ORDER BY indepyear ASC, `code` DESC;  
+
+# 10
+SELECT `code`, `name`, region FROM country WHERE region LIKE '%asia%' AND name LIKE '_o%';
+
+# 11
+SELECT char_length('홍길동') as 한글, char_length('hong') 영어 FROM DUAL;
+
+# 12
+SELECT `code`, `name`, GovernmentForm from country where GovernmentForm like '%republic%' and char_length(`name`) >= 10 ORDER BY char_length(`name`) DESC LIMIT 0, 10;
+
+# 13
+SELECT `code`, `name` from country WHERE code LIKE 'a%' or code LIKE 'e%' OR code LIKE 'i%' OR code LIKE 'o%' or code LIKE'u%' ORDER BY name LIMIT 2, 3;
+
+# 14
+SELECT `name`, INSERT(`name`, 3, char_length(`name`)-4, repeat('*', char_length(`name`) - 4)) AS guess FROM country;
+
+# 15
+SELECT DISTINCT REPLACE(region, ' ', '_')  AS 지역들 FROM country ORDER BY char_length(region) DESC;
+
+# 16
+SELECT `name`, surfacearea, population, round(surfacearea/population, 3) AS "1인당 점유면적" FROM country WHERE population >= 100000000 ORDER BY round(surfacearea/population, 3); 
